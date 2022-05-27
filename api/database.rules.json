@@ -1,7 +1,27 @@
 {
   /* Visit https://firebase.google.com/docs/database/security to learn more about security rules. */
   "rules": {
-    ".read": false,
-    ".write": false
+    ".read": "auth.token.role == 'admin'",
+    ".write": "auth.token.role == 'admin'",
+    "talents": {
+      "timestamp": {".validate": "newData.val() == now"},
+      "twitter_user_id": {
+        ".validate": "root.child('twitters/' + newData.val()).exists()" // Ensure twitter persisted
+      },
+      "created_at": {".validate": "newData.val() == now && !data.val()"}, // Write once
+      "$other": {".validate": false} // END TALENTS
+    },
+    "twitters": {
+      ".validate": "newData.hasChildren(['screen_name', 'oauth_token', 'oauth_token_secret'])",
+      "timestamp": {".validate": "newData.val() == now"},
+      "screen_name": {
+        ".validate": "newData.val().isString()" // Username/handles may change, twitter_id/token/secret should not
+      },
+      "oauth_token": {".validate": "newData.val().isString()"},
+      "oauth_token_secret": {".validate": "newData.val().isString()"},
+      "created_at": {".validate": "newData.val() == now && !data.val()"}, // Write once
+      "$other": {".validate": false} // END TWITTERS
+    },
+    "$other": {".validate": false} // No additional documents
   }
 }
