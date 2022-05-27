@@ -1,15 +1,14 @@
-// Sample of how a valid DB would look
 {
   "talents": {
     "PKEY_AKA_DISPLAYNAME_1": {
       "timestamp": 123123,
       "twitter_user_id": "TWITTER_USER_ID_1",
-      "created_at": 123123,
+      "created_at": 123123
     },
     "PKEY_AKA_DISPLAYNAME_2": {
       "timestamp": 123123,
       "created_at": 123123
-    },
+    }
   },
   "twitters": {
     "TWITTER_USER_ID_1": {

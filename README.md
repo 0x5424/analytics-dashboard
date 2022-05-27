@@ -5,6 +5,7 @@ Repository for both backend/frontend code. Serverless backend using firebase
 ## Dependencies
 
 - Node.js `>= 16`
+- (Optional) OpenJDK if running database emulator
 
 ## Setup
 

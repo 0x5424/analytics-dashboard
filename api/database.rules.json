@@ -8,18 +8,18 @@
       "twitter_user_id": {
         ".validate": "root.child('twitters/' + newData.val()).exists()" // Ensure twitter persisted
       },
-      "created_at": {".validate": "newData.val() == now && !data.val()"}, // Write once
+      "created_at": {".validate": "newData.val() == now && !data.exists()"}, // Write once
       "$other": {".validate": false} // END TALENTS
     },
     "twitters": {
       ".validate": "newData.hasChildren(['screen_name', 'oauth_token', 'oauth_token_secret'])",
       "timestamp": {".validate": "newData.val() == now"},
       "screen_name": {
-        ".validate": "newData.val().isString()" // Username/handles may change, twitter_id/token/secret should not
+        ".validate": "newData.isString()" // Username/handles may change, twitter_id/token/secret should not
       },
-      "oauth_token": {".validate": "newData.val().isString()"},
-      "oauth_token_secret": {".validate": "newData.val().isString()"},
-      "created_at": {".validate": "newData.val() == now && !data.val()"}, // Write once
+      "oauth_token": {".validate": "newData.isString() && !data.exists()"},
+      "oauth_token_secret": {".validate": "newData.isString() && !data.exists()"},
+      "created_at": {".validate": "newData.val() == now && !data.exists()"}, // Write once
       "$other": {".validate": false} // END TWITTERS
     },
     "$other": {".validate": false} // No additional documents
