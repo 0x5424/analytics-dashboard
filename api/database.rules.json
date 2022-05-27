@@ -4,6 +4,7 @@
     ".read": "auth.token.role == 'admin'",
     ".write": "auth.token.role == 'admin'",
     "talents": {
+      ".indexOn": ["timestamp"],
       "timestamp": {".validate": "newData.val() == now"},
       "name": {".validate": "newData.isString()"},
       "twitter_user_id": {
