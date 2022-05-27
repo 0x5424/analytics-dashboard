@@ -14,7 +14,7 @@ Repository for both backend/frontend code. Serverless backend using firebase
   - `COOKIE_ENCRYPTION_KEY`: (same as above)
   - `TWITTER_API_KEY`
   - `TWITTER_API_SECRET`
-3. Test the app locally by running `npm run dev`
+3. Test the app locally by running `npm run serve`
 
 ## Project Structure
 
