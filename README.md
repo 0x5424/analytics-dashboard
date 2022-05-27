@@ -30,3 +30,26 @@ On the contrary, all code under `web/` will eventually reach the client browser 
 │
 └── web - Admin dashboard app; written with solid.js
 ```
+
+## API Endpoints
+
+Each function **MUST** be namespaced by using `v#`, where # is an incremental version number.
+The endpoints each function will respond to will vary depending on business logic, but are largely ordered by resource name.
+
+Here is the current specification for v1:
+```
+v1
+├── /talents
+│   ├── GET   : Fetch all talents
+│   ├── POST  : Insert new talent
+│   └── /{id}
+│       ├── GET  : Fetch talent by identifier
+│       └── PATCH: Update a talent's _integrations_
+│           └── /actions
+│               ├── GET /redirect_twitter : Redirect talent to authorize & link their twitter
+│               └── POST /tweet_analytics : Retrieve data for specified tweets
+│
+└── /callbacks
+    └── /twitter
+        └── GET : Capture authorized talent & persist their OAuth credentials (for analytics)
+```
