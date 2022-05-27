@@ -5,6 +5,7 @@
     ".write": "auth.token.role == 'admin'",
     "talents": {
       "timestamp": {".validate": "newData.val() == now"},
+      "name": {".validate": "newData.isString()"},
       "twitter_user_id": {
         ".validate": "root.child('twitters/' + newData.val()).exists()" // Ensure twitter persisted
       },

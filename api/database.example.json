@@ -2,6 +2,7 @@
   "talents": {
     "PKEY_AKA_DISPLAYNAME_1": {
       "timestamp": 123123,
+      "name": "string",
       "twitter_user_id": "TWITTER_USER_ID_1",
       "created_at": 123123
     },
