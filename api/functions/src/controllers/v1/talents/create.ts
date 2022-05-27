@@ -2,9 +2,7 @@ import { Request, Response } from 'express'
 import { getDatabase, ServerValue } from 'firebase-admin/database'
 import { randomUUID } from 'crypto'
 
-const handleError = (res: Response, err: any) => {
-  return res.status(500).send({ message: `${err.code} : ${err.message}` })
-}
+import { handleError } from '../utils/errors'
 
 export const create = (req: Request, res: Response) => {
   try {

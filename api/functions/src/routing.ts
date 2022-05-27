@@ -1,15 +1,15 @@
 import { Application } from 'express'
-// import { index, create, show, update, destroy } from './controllers/v1/talents'
+// import { all, create, show, update, destroy } from './controllers/v1/talents'
 import { create } from './controllers/v1/talents'
 
 /**
  * Accepts an express app & applies the v1 function routing
  */
 export const routesV1 = (app: Application): void => {
-  // INDEX
-  // CREATE
+  /* Talent resources */
+  // app.get('/talents', all)
   app.post('/talents', create)
-  // SHOW
-  // UPDATE
-  // DESTROY
+  // app.get('/talents/:id', show)
+  // app.patch('/talents/:id', update)
+  // app.delete('/talents/:id', destroy)
 }
