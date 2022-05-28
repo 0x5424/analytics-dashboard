@@ -14,9 +14,9 @@
   "twitters": {
     "TWITTER_USER_ID_1": {
       "timestamp": 123123,
-      "twitter_screen_name": "string",
-      "twitter_oauth_token": "string",
-      "twitter_oauth_token_secret": "string",
+      "screen_name": "string",
+      "access_token": "string",
+      "refresh_token": "string",
       "created_at": 123123
     }
   }
