@@ -14,11 +14,12 @@
       "$other": {".validate": false} // END TALENTS
     },
     "twitters": {
-      ".validate": "newData.hasChildren(['screen_name', 'access_token', 'refresh_token'])",
+      ".validate": "newData.hasChildren(['screen_name', 'access_token', 'refresh_token', 'expires_in'])",
       "timestamp": {".validate": "newData.val() == now"},
       "screen_name": {".validate": "newData.isString()"},
       "access_token": {".validate": "newData.isString()"},
       "refresh_token": {".validate": "newData.isString()"},
+      "expires_in": {".validate": "newData.isNumber()"},
       "created_at": {".validate": "newData.val() == now && !data.exists()"}, // Write once
       "$other": {".validate": false} // END TWITTERS
     },

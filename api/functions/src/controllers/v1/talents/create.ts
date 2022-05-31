@@ -4,14 +4,14 @@ import { randomUUID } from 'crypto'
 
 import { handleError } from '../utils/errors'
 
-export const create = (req: Request, res: Response) => {
+export const create = async (req: Request, res: Response) => {
   try {
     const { name } = req.body
 
     if (!name) return res.status(400).send({ message: 'Missing name' })
 
     const id = randomUUID()
-    getDatabase().ref(`/talents/${id}`).set({
+    await getDatabase().ref(`/talents/${id}`).set({
       name,
       timestamp: ServerValue.TIMESTAMP,
       created_at: ServerValue.TIMESTAMP
