@@ -37,3 +37,14 @@ routesV1(app)
  * V1 routing; If/when v2 is needed, allows for configuring entirely new middleware
  */
 export const v1 = functions.https.onRequest(app)
+
+/**
+ * *MUST* disable all sign-ups, else users can create their own tokens to access the dashboard
+ *
+ * @see {@link https://github.com/firebase/firebaseui-web/issues/99#issuecomment-359443621 | Amazing 5 year old issue}
+ */
+ export const blockSignup = functions.auth.user().onCreate(({ uid }) => {
+  return admin.auth().updateUser(uid, { disabled: true })
+  .then(userRecord => functions.logger.log("Auto blocked user", userRecord.toJSON()))
+  .catch(error => functions.logger.warn("Error auto blocking:", error));
+});
