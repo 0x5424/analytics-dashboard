@@ -5,7 +5,7 @@ const exportDb = (includeEmulators: boolean) => {
   const db = getDatabase(firebaseApp)
 
   if (includeEmulators) {
-    console.log('[firebase/database] Connecting to emulator')
+    console.log('[firebase/database] Initializing emulator')
     connectDatabaseEmulator(db, 'localhost', 9000)
   }
 

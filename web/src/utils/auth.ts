@@ -5,7 +5,7 @@ const exportAuth = (includeEmulators: boolean) => {
   const auth = getAuth(firebaseApp)
 
   if (includeEmulators) {
-    console.log('[firebase/auth] Connecting to emulator')
+    console.log('[firebase/auth] Initializing emulator')
     connectAuthEmulator(auth, "http://localhost:9099")
   }
 

@@ -1,33 +1,24 @@
 import type { Component } from 'solid-js';
 import { ref, get } from "firebase/database";
 
-import logo from './logo.svg';
 import styles from './App.module.css';
 
 import { db } from './utils/database'
 
 // Test db connection
-await get(ref(db)).then((snapshot) => {
-  console.log('LOGGING DB VALUE:', snapshot.val())
+await get(ref(db)).then(() => {
+  console.log('[firebase/database] Connected to DB successfully')
 }).catch((err) => {
-  console.error('Failed to connect to db; error:', err)
+  console.error('[firebase/database] Failed to connect--error:', err)
 })
 
 /* COMPONENTS */
-import { Example } from './components/Example'
+import { TalentList } from './components/TalentList'
 
 const App: Component = () => {
   return (
     <div class={styles.App}>
-      <nav>
-        <ul class={styles.list}>
-          <li>Talent1</li>
-          <li>Talent_XX</li>
-          <li>Talent_XX</li>
-          <li>Talent_XX</li>
-        </ul>
-      </nav>
-      <Example />
+      <TalentList />
     </div>
   );
 };

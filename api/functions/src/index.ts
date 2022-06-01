@@ -12,7 +12,7 @@ import { routesV1 } from './routing'
 admin.initializeApp()
 const app = express()
 app.use(bodyParser.json())
-app.use(cors({ origin: true }))
+app.use(cors({ origin: process.env.WEB_APP_ORIGIN }))
 
 /**
  * @note Firebase only has access to .env vars inside the `onRequest` function
@@ -46,5 +46,5 @@ export const v1 = functions.https.onRequest(app)
  export const blockSignup = functions.auth.user().onCreate(({ uid }) => {
   return admin.auth().updateUser(uid, { disabled: true })
   .then(userRecord => functions.logger.log("Auto blocked user", userRecord.toJSON()))
-  .catch(error => functions.logger.warn("Error auto blocking:", error));
+  .catch(error => functions.logger.error("Error auto blocking:", error));
 });
