@@ -1,9 +1,9 @@
-import type { Component } from 'solid-js';
-import { ref, get } from "firebase/database";
+import type {Component} from 'solid-js'
+import {ref, get} from 'firebase/database'
 
-import styles from './App.module.css';
+import styles from './App.module.css'
 
-import { db } from './utils/database'
+import {db} from './utils/database'
 
 // Test db connection
 await get(ref(db)).then(() => {
@@ -13,14 +13,14 @@ await get(ref(db)).then(() => {
 })
 
 /* COMPONENTS */
-import { TalentList } from './components/TalentList'
+import {TalentList} from './components/TalentList'
 
 const App: Component = () => {
   return (
     <div class={styles.App}>
       <TalentList />
     </div>
-  );
-};
+  )
+}
 
-export default App;
+export default App

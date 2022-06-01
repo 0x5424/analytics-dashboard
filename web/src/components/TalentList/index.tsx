@@ -1,21 +1,13 @@
-import type { Component } from 'solid-js';
-import { Show, For, createResource, createSignal } from "solid-js";
-import { ref, get } from "firebase/database";
+import type {Component} from 'solid-js'
+import {Show, For, createResource, createSignal} from 'solid-js'
 
-import { db } from '../../utils/database'
+import {fetchTalents, createTalent} from '../../utils/database'
 
-import styles from './TalentList.module.css';
-
-const fetchTalents = async () => {
-  const snapshot = await get(ref(db, '/talents'))
-
-  return snapshot.val()
-};
+import styles from './TalentList.module.css'
 
 export const TalentList: Component = () => {
-  const [talents] = createResource(fetchTalents);
-  const [newTalentName, setNewTalentName] = createSignal("");
-  let formattedTalents = []
+  const [talents] = createResource(fetchTalents)
+  const [newTalentName, setNewTalentName] = createSignal('')
 
   return (
     <>
@@ -27,7 +19,7 @@ export const TalentList: Component = () => {
           </div>
           <Show when={talents()} fallback={<span>No talents yet</span>}>
             <For each={Object.entries(talents())}>
-              {([_id, talent]) => <li>{talent.name}</li>}
+              {([/* id */, talent]) => <li>{talent.name}</li>}
             </For>
           </Show>
           <div>
@@ -38,7 +30,7 @@ export const TalentList: Component = () => {
               value={newTalentName()}
               oninput={(e) => setNewTalentName(e.target.value)}
             />
-            <button onclick={() => console.log(newTalentName())}>
+            <button onclick={() => createTalent(newTalentName())}>
               Create
             </button>
           </div>

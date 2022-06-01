@@ -24,12 +24,10 @@ export const redirectTwitter = async (req: Request, res: Response) => {
     const cookieOptions = {
       httpOnly: true,
       signed: true,
-      maxAge: 1000 * 45 // 45s; Twitter auth_code expires in 30s, but we provide some leeway on our end
+      maxAge: 1000 * 60 // 1m; Twitter auth_code expires in 30s, but we provide some leeway on our end for the redirect
     }
     // Persist the talent_id, state, codeVerifier in a signed, encrypted cookie
-    res.cookie('talentId', id, cookieOptions)
-    res.cookie('codeVerifier', codeVerifier, cookieOptions)
-    res.cookie('state', state, cookieOptions)
+    res.cookie('twitter', JSON.stringify({ talentId: id, codeVerifier, state }), cookieOptions)
 
     return res.redirect(url)
   } catch (err) {

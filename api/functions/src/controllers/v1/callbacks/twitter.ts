@@ -7,7 +7,10 @@ import { handleError } from '../utils/errors'
 export const callbacksTwitter = async (req: Request, res: Response) => {
   try {
     const { state, code } = req.query
-    const { talentId, codeVerifier, state: sessionState } = req.signedCookies
+    const { twitter } = req.signedCookies
+    if (!twitter) return res.status(400).send('No token found; Please retry the authorization flow')
+
+    const { talentId, codeVerifier, state: sessionState } = JSON.parse(twitter)
 
     if (!talentId || !codeVerifier || !state || !sessionState || !code) {
       return res.status(400).send('Permission was not granted; Please retry the authorization flow')

@@ -5,23 +5,29 @@
     ".write": "auth.token.role == 'admin'",
     "talents": {
       ".indexOn": ["timestamp"],
-      "timestamp": {".validate": "newData.val() == now"},
-      "name": {".validate": "newData.isString()"},
-      "twitter_user_id": {
-        ".validate": "root.child('twitters/' + newData.val()).exists()" // Ensure twitter persisted
+      "$talentId": {
+        ".validate": "newData.hasChildren(['name', 'created_at', 'timestamp'])",
+        "timestamp": {".validate": "newData.val() == now"},
+        "name": {".validate": "newData.isString()"},
+        "twitter_user_id": {
+          ".validate": "root.child('twitters/' + newData.val()).exists()" // Ensure twitter persisted
+        },
+        "created_at": {".validate": "newData.val() == now && !data.exists()"}, // Write once
+        "$other": {".validate": false} // END TALENTS
       },
-      "created_at": {".validate": "newData.val() == now && !data.exists()"}, // Write once
-      "$other": {".validate": false} // END TALENTS
     },
     "twitters": {
-      ".validate": "newData.hasChildren(['screen_name', 'access_token', 'refresh_token', 'expires_in'])",
-      "timestamp": {".validate": "newData.val() == now"},
-      "screen_name": {".validate": "newData.isString()"},
-      "access_token": {".validate": "newData.isString()"},
-      "refresh_token": {".validate": "newData.isString()"},
-      "expires_in": {".validate": "newData.isNumber()"},
-      "created_at": {".validate": "newData.val() == now && !data.exists()"}, // Write once
-      "$other": {".validate": false} // END TWITTERS
+      ".indexOn": ["timestamp", "screen_name"],
+      "$twitterId": {
+        ".validate": "newData.hasChildren(['screen_name', 'access_token', 'refresh_token', 'expires_in'])",
+        "timestamp": {".validate": "newData.val() == now"},
+        "screen_name": {".validate": "newData.isString()"},
+        "access_token": {".validate": "newData.isString()"},
+        "refresh_token": {".validate": "newData.isString()"},
+        "expires_in": {".validate": "newData.isNumber()"},
+        "created_at": {".validate": "newData.val() == now && !data.exists()"}, // Write once
+        "$other": {".validate": false} // END TWITTERS
+      },
     },
     "$other": {".validate": false} // No additional documents
   }

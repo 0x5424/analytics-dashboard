@@ -1,14 +1,14 @@
-import type { Component } from 'solid-js';
-import { createSignal, createResource } from "solid-js";
+import type {Component} from 'solid-js'
+import {createSignal, createResource} from 'solid-js'
 
-import styles from './Example.module.css';
+import styles from './Example.module.css'
 
 const fetchPlanet = async (id) =>
-  (await fetch(`https://swapi.dev/api/planets/${id}/`)).json();
+  (await fetch(`https://swapi.dev/api/planets/${id}/`)).json()
 
 export const Example: Component = () => {
-  const [planetId, setPlanetId] = createSignal();
-  const [planet] = createResource(planetId, fetchPlanet);
+  const [planetId, setPlanetId] = createSignal()
+  const [planet] = createResource(planetId, fetchPlanet)
 
   return (
     <div class={styles.container}>
@@ -18,10 +18,10 @@ export const Example: Component = () => {
         placeholder="Enter Numeric Id"
         onInput={(e) => setPlanetId(e.currentTarget.value)}
       />
-      <span>{planet.loading && "Loading..."}</span>
+      <span>{planet.loading && 'Loading...'}</span>
       <div>
         <pre>{JSON.stringify(planet(), null, 2)}</pre>
       </div>
     </div>
-  );
-};
+  )
+}
