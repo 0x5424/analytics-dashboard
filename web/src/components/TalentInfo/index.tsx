@@ -4,7 +4,7 @@ import {TalentName} from './TalentName'
 import {TalentActions} from './TalentActions'
 import styles from './TalentInfo.module.css'
 
-export const TalentInfo: Component = ({selectedTalent, updateTalentName}) => {
+export const TalentInfo: Component = ({selectedTalent, selectedTwitter, updateTalentName}) => {
   return (
     <div class={styles.container}>
       {selectedTalent() ?
@@ -15,6 +15,7 @@ export const TalentInfo: Component = ({selectedTalent, updateTalentName}) => {
           />
           <TalentActions
             selectedTalent={selectedTalent}
+            selectedTwitter={selectedTwitter}
           />
           <pre>
             {JSON.stringify(selectedTalent(), null, 2)}

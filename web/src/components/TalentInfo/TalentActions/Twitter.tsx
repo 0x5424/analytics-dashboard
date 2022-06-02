@@ -1,5 +1,5 @@
 import type {Component} from 'solid-js'
-import {createSignal} from 'solid-js'
+import {Show, createSignal, createEffect} from 'solid-js'
 
 import styles from './TalentActions.module.css'
 
@@ -21,24 +21,29 @@ const InitialDescription: Component = ({ selectedTalent }) => {
   )
 }
 
-export const TalentActions: Component = ({selectedTalent}) => {
+export const Twitter: Component = ({selectedTalent, selectedTwitter}) => {
   const [clicked, setClicked] = createSignal(false)
 
+  createEffect(() => {
+    // Subscribe to selectedUser to reset `setClicked`
+    selectedTalent()
+    setClicked(false)
+  })
+
   // Derived signals
+  const isLinked = () => !!selectedTwitter()
   const url = () => `${API_URL_BASE}/v1/talents/${selectedTalent().id}/actions/redirect_twitter`
-  const copyUrl = () => {
-    navigator.clipboard.writeText(url());
-  }
   const actionText = () => clicked() ? 'Copy URL' : 'Link Twitter'
 
+  /**
+   * @todo Study lifecycle & understand why Show.children works, but normal ternary (`selectedTwitter() ? Linked : Button`) fails
+   */
   return (
-    <>
-      <div class={styles.wrapper}>
-        <button class={styles.action} onclick={() => clicked() ? copyUrl() : setClicked(true)}>
-          {actionText()}
-        </button>
-        {clicked() ? <UrlDescription url={url} /> : <InitialDescription selectedTalent={selectedTalent} />}
-      </div>
-    </>
+    <Show when={!selectedTwitter()} fallback={<pre>Twitter linked</pre>}>
+      <button class={styles.action} onclick={() => clicked() ? navigator.clipboard.writeText(url()) : setClicked(true)}>
+        {actionText()}
+      </button>
+      {clicked() ? <UrlDescription url={url} /> : <InitialDescription selectedTalent={selectedTalent} />}
+    </Show>
   )
 }

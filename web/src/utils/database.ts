@@ -33,6 +33,14 @@ export const listenTalents = (mutate) => {
   })
 }
 
+export const listenTwitters = (mutate) => {
+  const twittersRef = ref(db, 'twitters/')
+
+  onValue(twittersRef, (snapshot) => {
+    mutate(snapshot.val())
+  })
+}
+
 export const createTalent = (name) => {
   const payload = {
     name,
