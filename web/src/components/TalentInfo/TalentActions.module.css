@@ -1,0 +1,61 @@
+.warningContainer {
+  background: #e0e0e0;
+  padding: 0.4rem 0.6rem 0.3rem 0.8rem;
+  border-left: 0.3rem solid palevioletred;
+  margin: 2.5rem 0px;
+  border-radius: 0.166667rem;
+  color: #121212;
+}
+
+.warningLabel {
+  display: block;
+  font-weight: 600;
+  font-family: "Avenir Next", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  text-transform: uppercase;
+  font-size: 90%;
+  margin-bottom: 0.4rem;
+}
+
+.wrapper {
+  --gutter-width: 1.5rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  margin-left: auto;
+  margin-right: auto;
+  padding: calc(var(--gutter-width) * .5);
+}
+
+.action {
+  text-decoration: none;
+  font-size: 1em;
+  margin: 1em;
+  padding: 0.25em 1em;
+  border-radius: 3px;
+  background: transparent;
+  color: palevioletred;
+  border: 2px solid palevioletred;
+}
+
+.action:hover {
+  color: #121212;
+  background-color: palevioletred;
+  cursor: pointer;
+}
+
+.talentName {
+  color: palevioletred;
+}
+
+.talentUrl {
+  font-size: 13px;
+  background-color: #e0e0e0;
+  color: black;
+  margin: 3px;
+  padding: 0.25em;
+}
+
+.alignCenter {
+  align-self: center;
+}
