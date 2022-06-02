@@ -50,5 +50,6 @@ export const createTalent = (name) => {
 export const updateTalentName = ({id, name}) => {
   const updates = {}
   updates[`/talents/${id}/name`] = name
+  updates[`/talents/${id}/timestamp`] = serverTimestamp()
   update(ref(db), updates)
 }

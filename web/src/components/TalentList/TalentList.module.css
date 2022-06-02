@@ -20,4 +20,10 @@ li:hover {
 
 .divider {
   width: 160px;
+  margin: 20px;
+}
+
+
+.centered {
+  text-align: center;
 }

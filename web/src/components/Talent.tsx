@@ -13,12 +13,19 @@ export const Talent: Component = () => {
   const [talents, {mutate}] = createResource()
   listenTalents(mutate)
 
-  const [newTalentName, setNewTalentName] = createSignal('')
-  const handleCreateNewTalent = () => {
-    createTalent(newTalentName())
-    setNewTalentName('')
+  const handleCreateNewTalent = (name) => {
+    createTalent(name)
   }
-  const [selectedTalent, selectNewTalent] = createSignal(null, {equals: false})
+  const [talentId, setTalentId] = createSignal(null, {equals: false})
+
+  // Derived signal: current selectedTalent based on selected ID
+  const selectedTalent = () => {
+    if (!talents() || !talentId()) return null
+    // Original reference is missing the ID
+    const orig = talents()[talentId()]
+
+    return {id: talentId(), ...orig}
+  }
 
   return (
     <>
@@ -26,10 +33,8 @@ export const Talent: Component = () => {
         <>
           <TalentList
             talentList={talents}
-            newTalentName={newTalentName}
-            setNewTalentName={setNewTalentName}
             handleCreateNewTalent={handleCreateNewTalent}
-            selectNewTalent={selectNewTalent}
+            setTalentId={setTalentId}
             selectedTalent={selectedTalent}
           />
 

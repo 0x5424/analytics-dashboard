@@ -4,7 +4,6 @@ import {createSignal, createEffect} from 'solid-js'
 import styles from './TalentName.module.css'
 
 export const TalentName: Component = ({selectedTalent, updateTalentName}) => {
-  // const [newName, setNewTalentName] = createSignal(selectedTalent().name)
   let valueRef
   const [editMode, setEditMode] = createSignal(false)
 
@@ -20,11 +19,9 @@ export const TalentName: Component = ({selectedTalent, updateTalentName}) => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
+    const name = valueRef.value
 
-    const payload = {
-      id: selectedTalent().id,
-      name: valueRef.value
-    }
+    const payload = {id: selectedTalent().id, name}
 
     updateTalentName(payload)
     setEditMode(false)
@@ -39,15 +36,18 @@ export const TalentName: Component = ({selectedTalent, updateTalentName}) => {
         {selectedTalent().name}
       </h2>
       {editMode() && (
-        <form class={styles.updateField} onsubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder={selectedTalent().name}
-            // value={newName()}
-            // oninput={(e) => setNewTalentName(e.target.value)}
-            ref={valueRef}
-          />
-        </form>
+        <>
+          <form class={styles.updateField} onsubmit={handleSubmit}>
+            <input
+              type="text"
+              placeholder={selectedTalent().name}
+              ref={valueRef}
+            />
+          </form>
+          <button class={styles.cancel} onclick={toggleEditMode}>
+            Cancel
+          </button>
+        </>
       )}
     </header>
   )
