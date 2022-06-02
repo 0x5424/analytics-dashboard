@@ -29,7 +29,7 @@ export const Talent: Component = () => {
 
   // Derived signal: current selectedTwitter based on selectedTalent
   const selectedTwitter = () => {
-    console.log('[selectedTwitter] Invoked')
+    if (!twitters()) return null
     if (!selectedTalent() && !selectedTalent().twitter_user_id) return null
 
     return twitters()[selectedTalent().twitter_user_id]

@@ -11,12 +11,18 @@ Repository for both backend/frontend code. Serverless backend using firebase
 
 1. `cd api/functions` and run `npm install`
 2. Get the following ENV vars from a developer:
-  - `COOKIE_SIGNING_KEY`: 32 bytes, b64-encoded
-  - `COOKIE_ENCRYPTION_KEY`: Must be 32 bytes, hex-encoded (passed to `Buffer.from(VAL, 'hex')`)
+  - `COOKIE_SIGNING_KEY`: Must be 32 bytes, hex-encoded (passed to `Buffer.from(VAL, 'hex')`)
+  - `COOKIE_ENCRYPTION_KEY`: (same as above)
   - `TWITTER_API_KEY`
   - `TWITTER_API_SECRET`
   - `TWITTER_REDIRECT_URL`
 3. Test the app locally by running `npm run serve`
+
+Example to create new cookie credentials in development:
+```
+const { randomBytes } = await import('node:crypto')
+Buffer.from(randomBytes(32)).toString('hex')
+```
 
 ## Project Structure
 

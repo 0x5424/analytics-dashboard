@@ -59,3 +59,13 @@
 .alignCenter {
   align-self: center;
 }
+
+.link {
+  padding: 5px;
+  text-decoration: none;
+}
+
+.link:hover {
+  background-color: #e0e0e0;
+  border-radius: 5px;
+}

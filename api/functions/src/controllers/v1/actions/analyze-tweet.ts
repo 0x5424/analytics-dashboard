@@ -10,8 +10,9 @@ const TWEET_FIELDS: TTweetv2TweetField[] = [
   'public_metrics',
   'non_public_metrics',
   'organic_metrics',
-  'promoted_metrics',
 ]
+
+const PROMOTED: TTweetv2TweetField = 'promoted_metrics'
 
 const MEDIA_FIELDS: TTweetv2MediaField[] = [
   'public_metrics',
@@ -30,6 +31,8 @@ export const analyzeTweet = async (req: Request, res: Response) => {
   try {
     const {twitterId, tweetUrl} = req.body?.data || {}
     if (!twitterId || !tweetUrl) return res.status(400).send({message: 'Missing fields'})
+
+    const includePromoted = req.body.data?.promoted || false
     /**
      * Format:
      * ```
@@ -54,14 +57,16 @@ export const analyzeTweet = async (req: Request, res: Response) => {
     const client = new TwitterApi(twitter.access_token)
 
     const tweet = await client.v2.singleTweet(tweetId, {
-      'tweet.fields': TWEET_FIELDS,
+      'tweet.fields': includePromoted ? [PROMOTED, ...TWEET_FIELDS] : TWEET_FIELDS,
       'expansions': MEDIA_EXPANSIONS,
       'media.fields': MEDIA_FIELDS,
     })
 
     functions.logger.log('[analyzeTweet] Response:', tweet)
 
-    return res.status(200).send({data: tweet})
+    const formattedResponse = tweet.errors ? {data: tweet} : tweet
+
+    return res.status(200).send(formattedResponse)
   } catch (err) {
     return handleError(res, err)
   }
