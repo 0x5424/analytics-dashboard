@@ -13,12 +13,12 @@ await get(ref(db)).then(() => {
 })
 
 /* COMPONENTS */
-import {TalentList} from './components/TalentList'
+import {Talent} from './components/Talent'
 
 const App: Component = () => {
   return (
     <div class={styles.App}>
-      <TalentList />
+      <Talent />
     </div>
   )
 }

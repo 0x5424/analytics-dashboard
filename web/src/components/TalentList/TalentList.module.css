@@ -1,7 +1,21 @@
 .list {
-  list-style: none;
   display: flex;
   flex-direction: column;
+}
+
+li {
+  list-style: none;
+  padding: 10px 20px;
+}
+
+li:hover {
+  cursor: pointer;
+  color: #b845cf;
+}
+
+.selected {
+  list-style: unset;
+  padding: 10px 0px;
 }
 
 .divider {

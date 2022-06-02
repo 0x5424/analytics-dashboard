@@ -5,6 +5,7 @@ import {
   ref,
   push,
   child,
+  onValue,
   getDatabase,
   connectDatabaseEmulator,
   serverTimestamp,
@@ -23,10 +24,12 @@ const exportDb = (includeEmulators: boolean) => {
 
 export const db = exportDb(location.hostname === 'localhost')
 
-export const fetchTalents = async () => {
-  const snapshot = await get(ref(db, '/talents'))
+export const listenTalents = (mutate) => {
+  const talentsRef = ref(db, 'talents/')
 
-  return snapshot.val()
+  onValue(talentsRef, (snapshot) => {
+    mutate(snapshot.val())
+  });
 }
 
 export const createTalent = (name) => {
