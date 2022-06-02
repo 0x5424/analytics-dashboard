@@ -1,0 +1,7 @@
+.container {
+  /*background-color: #474954;*/
+  /*background-color: rgb(47, 49, 54);*/
+  /*background-color: rgb(37, 39, 44);*/
+  background-color: rgb(32, 34, 39);
+  flex-grow: 1;
+}

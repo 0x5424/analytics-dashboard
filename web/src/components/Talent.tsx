@@ -1,9 +1,10 @@
 import type {Component} from 'solid-js'
 import {Show, For, createResource, createSignal} from 'solid-js'
 
-import {listenTalents, createTalent} from '../utils/database'
+import {listenTalents, createTalent, updateTalentName} from '../utils/database'
 
-import { TalentList } from './TalentList'
+import {TalentList} from './TalentList'
+import {TalentInfo} from './TalentInfo'
 
 /**
  * Contains Navbar (TalentList) and talent view (TalentInfo)
@@ -17,7 +18,7 @@ export const Talent: Component = () => {
     createTalent(newTalentName())
     setNewTalentName('')
   }
-  const [selectedTalent, selectNewTalent] = createSignal(null)
+  const [selectedTalent, selectNewTalent] = createSignal(null, {equals: false})
 
   return (
     <>
@@ -31,9 +32,11 @@ export const Talent: Component = () => {
             selectNewTalent={selectNewTalent}
             selectedTalent={selectedTalent}
           />
-          <button onclick={() => console.log(selectedTalent())}>
-            Who is selected!??!?!?
-          </button>
+
+          <TalentInfo
+            selectedTalent={selectedTalent}
+            updateTalentName={updateTalentName}
+          />
         </>
       )}
     </>

@@ -2,6 +2,7 @@ import {firebaseApp} from './firebase-app'
 import {
   get,
   set,
+  update,
   ref,
   push,
   child,
@@ -29,7 +30,7 @@ export const listenTalents = (mutate) => {
 
   onValue(talentsRef, (snapshot) => {
     mutate(snapshot.val())
-  });
+  })
 }
 
 export const createTalent = (name) => {
@@ -44,4 +45,10 @@ export const createTalent = (name) => {
 
   // Return value directly to save a DB hit
   return {id, ...payload}
+}
+
+export const updateTalentName = ({id, name}) => {
+  const updates = {}
+  updates[`/talents/${id}/name`] = name
+  update(ref(db), updates)
 }

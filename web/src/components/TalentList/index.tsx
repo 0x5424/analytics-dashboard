@@ -3,7 +3,7 @@ import {Show, For} from 'solid-js'
 
 import styles from './TalentList.module.css'
 
-export const TalentList: Component = ({ talentList, newTalentName, setNewTalentName, handleCreateNewTalent, selectedTalent, selectNewTalent }) => {
+export const TalentList: Component = ({talentList, newTalentName, setNewTalentName, handleCreateNewTalent, selectedTalent, selectNewTalent}) => {
   return (
     <nav class={styles.list}>
       <div>
