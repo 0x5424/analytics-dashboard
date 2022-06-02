@@ -26,9 +26,11 @@ module.exports = {
   ],
   rules: {
     'quotes': ['error', 'single'],
+    'max-len': ['error', {'code': 120, 'ignoreComments': true}],
     'indent': ['error', 2],
     'linebreak-style': ['error', 'unix'],
     'semi': ['error', 'never'],
+    'valid-jsdoc': 0, // This is what typescript is for
     'import/no-unresolved': 0,
   },
 }

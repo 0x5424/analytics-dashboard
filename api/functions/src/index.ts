@@ -7,12 +7,12 @@ import * as cookieParser from 'cookie-parser'
 import * as cookieEncryptor from 'cookie-encrypter'
 
 // Routing
-import { routesV1 } from './routing'
+import {routesV1} from './routing'
 
 admin.initializeApp()
 const app = express()
 app.use(bodyParser.json())
-app.use(cors({ origin: process.env.WEB_APP_ORIGIN }))
+app.use(cors({origin: process.env.WEB_APP_ORIGIN}))
 
 /**
  * @note Firebase only has access to .env vars inside the `onRequest` function
@@ -21,7 +21,7 @@ app.use(cors({ origin: process.env.WEB_APP_ORIGIN }))
  */
 if (!process.env.COOKIE_SIGNING_KEY) {
   console.warn('[process.env] Variables are NOT currently loaded; Running dotenv to fix this in development.')
-  require('dotenv').config()
+  require('dotenv').config() // eslint-disable-line @typescript-eslint/no-var-requires
 }
 
 // 1. Signing key is 32 raw bytes, b64 encoded
@@ -43,8 +43,8 @@ export const v1 = functions.https.onRequest(app)
  *
  * @see {@link https://github.com/firebase/firebaseui-web/issues/99#issuecomment-359443621 | Amazing 5 year old issue}
  */
- export const blockSignup = functions.auth.user().onCreate(({ uid }) => {
-  return admin.auth().updateUser(uid, { disabled: true })
-  .then(userRecord => functions.logger.log("Auto blocked user", userRecord.toJSON()))
-  .catch(error => functions.logger.error("Error auto blocking:", error));
-});
+export const blockSignup = functions.auth.user().onCreate(({uid}) => {
+  return admin.auth().updateUser(uid, {disabled: true})
+    .then((userRecord) => functions.logger.log('Auto blocked user', userRecord.toJSON()))
+    .catch((error) => functions.logger.error('Error auto blocking:', error))
+})
