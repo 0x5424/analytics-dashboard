@@ -1,12 +1,13 @@
 {
   "talents": {
-    "PKEY_AKA_DISPLAYNAME_1": {
+    "PKEY_1": {
       "timestamp": 123123,
       "name": "string",
       "twitter_user_id": "TWITTER_USER_ID_1",
       "created_at": 123123
     },
-    "PKEY_AKA_DISPLAYNAME_2": {
+    "PKEY_2": {
+      "name": "string",
       "timestamp": 123123,
       "created_at": 123123
     }
@@ -17,6 +18,7 @@
       "screen_name": "string",
       "access_token": "string",
       "refresh_token": "string",
+      "expires_in": 7200,
       "created_at": 123123
     }
   }
