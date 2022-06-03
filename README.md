@@ -61,3 +61,15 @@ v1
     └── /twitter
         └── GET : Capture authorized talent & persist their OAuth credentials (for analytics)
 ```
+
+## Todo
+
+Known issues/missing features:
+- [ ] No shared dev environment (if choosing to not use emulator)
+- [ ] No option to support engagements API
+- [ ] CI
+
+DX:
+- [ ] Clean up integrations logic/structure
+  - [ ] Twitter
+- [ ] `solid.js` best practices for passing signals to child components
