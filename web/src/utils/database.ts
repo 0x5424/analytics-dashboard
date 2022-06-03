@@ -1,6 +1,5 @@
 import {firebaseApp} from './firebase-app'
 import {
-  get,
   set,
   update,
   ref,

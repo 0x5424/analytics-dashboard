@@ -72,7 +72,7 @@ export const analyzeTweet = async (req: Request, res: Response) => {
         access_token: accessToken,
         refresh_token: refreshToken,
         expires_in: expiresIn - 60, // Refresh 1 minute earlier to prevent any differences in server timing
-        timestamp: ServerValue.TIMESTAMP
+        timestamp: ServerValue.TIMESTAMP,
       })
 
       // 3. Update scoped token

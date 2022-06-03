@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import type {Component} from 'solid-js'
 import {children, Show, createSignal, createEffect} from 'solid-js'
 
@@ -5,7 +6,7 @@ import {analyzeTweet} from '../../../utils/functions'
 
 import styles from './TalentActions.module.css'
 
-const UrlDescription: Component = ({ url }) => {
+const UrlDescription: Component = ({url}) => {
   return (
     <p class={styles.alignCenter}>
       Press the button again to copy, or copy this URL directly and send to the talent:
@@ -15,15 +16,15 @@ const UrlDescription: Component = ({ url }) => {
   )
 }
 
-const InitialDescription: Component = ({ selectedTalent }) => {
-  return(
+const InitialDescription: Component = ({selectedTalent}) => {
+  return (
     <p>
       Generate a unique URL to link <code class={styles.pinkText}>{selectedTalent().name}</code>'s Twitter account.
     </p>
   )
 }
 
-const Link: Component = ({ href, text, pad, children: childComponents }) => {
+const Link: Component = ({href, text, pad, children: childComponents}) => {
   const c = children(() => childComponents)
   return (
     <a
@@ -31,17 +32,17 @@ const Link: Component = ({ href, text, pad, children: childComponents }) => {
       ref="noreferrer"
       target="_blank"
       class={styles.link}
-      class={!!pad ? styles.pad5 : null}
+      class={pad ? styles.pad5 : null}
       class={styles.pinkText}
     >
       {text ? text : c()}
-  </a>)
+    </a>)
 }
 
-const AnalyzeButton: Component = ({ selectedTwitter, setClicked }) => {
+const AnalyzeButton: Component = ({selectedTwitter, setClicked}) => {
   return (
     <>
-    <button class={styles.action} onclick={() => setClicked(true)}>Analyze</button>
+      <button class={styles.action} onclick={() => setClicked(true)}>Analyze</button>
       Get tweet metrics for
       <Link
         pad
@@ -50,18 +51,18 @@ const AnalyzeButton: Component = ({ selectedTwitter, setClicked }) => {
         <code>
           {`@${selectedTwitter().screen_name}`}
         </code>
-    </Link>
+      </Link>
     's tweets.
-  </>)
+    </>)
 }
 
-const TweetResult: Component = ({ tweet }) => {
+const TweetResult: Component = ({tweet}) => {
   const [collapsed, setCollapsed] = createSignal(true)
   const toggleCollapse = () => setCollapsed(!collapsed())
 
   const hasErrors = () => tweet().data.errors
 
-  return(
+  return (
     <>
       <Show when={!hasErrors()} fallback={<pre>TWITTER API ERROR: See raw payload for error messages.</pre>}>
         <div class={styles.analyticsGrid}>
@@ -81,17 +82,17 @@ const TweetResult: Component = ({ tweet }) => {
         onclick={toggleCollapse}
       >
         Raw:<br />
-        {collapsed() ? `{ ... }` : JSON.stringify(tweet(), null, 2)}
+        {collapsed() ? '{ ... }' : JSON.stringify(tweet(), null, 2)}
       </pre>
     </>
   )
 }
 
-const AnalyzeSection: Component = ({ selectedTalent, selectedTwitter }) => {
+const AnalyzeSection: Component = ({selectedTalent, selectedTwitter}) => {
   const METRICS = 'https://developer.twitter.com/en/docs/twitter-api/metrics'
   const ENTERPRISE = 'https://developer.twitter.com/en/docs/twitter-api/enterprise/engagement-api/overview'
 
-  let textRef, checkboxRef
+  let textRef; let checkboxRef
   const [clicked, setClicked] = createSignal(false)
   const [parsedTweet, setParsedTweet] = createSignal(null)
   const [showUsageContainer, setShowUsageContainer] = createSignal(false)
@@ -109,7 +110,7 @@ const AnalyzeSection: Component = ({ selectedTalent, selectedTwitter }) => {
     const payload = {
       twitterId: selectedTalent().twitter_user_id,
       tweetUrl: textRef.value,
-      promoted: checkboxRef.checked
+      promoted: checkboxRef.checked,
     }
 
     const result = await analyzeTweet(payload)
@@ -117,7 +118,7 @@ const AnalyzeSection: Component = ({ selectedTalent, selectedTwitter }) => {
     setParsedTweet(result)
   }
 
-  return(
+  return (
     <Show when={clicked()} fallback={<AnalyzeButton selectedTwitter={selectedTwitter} setClicked={setClicked}/>}>
       <section class={styles.tweetSection}>
         <div class={styles.warningContainer} onclick={() => setShowUsageContainer(!showUsageContainer())}>
@@ -167,7 +168,6 @@ export const Twitter: Component = ({selectedTalent, selectedTwitter}) => {
   })
 
   // Derived signals
-  const isLinked = () => !!selectedTwitter()
   const url = () => `${API_URL_BASE}/v1/talents/${selectedTalent().id}/actions/redirect_twitter`
   const actionText = () => clicked() ? 'Copy URL' : 'Link Twitter'
 

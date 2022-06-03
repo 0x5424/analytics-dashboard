@@ -1,5 +1,5 @@
 import type {Component} from 'solid-js'
-import {Show, For, createResource, createSignal} from 'solid-js'
+import {createResource, createSignal} from 'solid-js'
 
 import {listenTalents, listenTwitters, createTalent, updateTalentName} from '../utils/database'
 

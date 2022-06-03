@@ -35,24 +35,24 @@ export const TalentList: Component = ({talentList, handleCreateNewTalent, select
       <div>
         <hr class={styles.divider}/>
         <div class={styles.centered}>
-        {editMode() ? (
-          <>
-            <form onsubmit={handleSubmit}>
-              <input
-                type="text"
-                placeholder="New talent name"
-                ref={valueRef}
-              />
-            </form>
-            <button onclick={() => setEditMode(false)}>
+          {editMode() ? (
+            <>
+              <form onsubmit={handleSubmit}>
+                <input
+                  type="text"
+                  placeholder="New talent name"
+                  ref={valueRef}
+                />
+              </form>
+              <button onclick={() => setEditMode(false)}>
               Cancel
-            </button>
-          </>
-        ) : (
-          <button  onclick={() => setEditMode(true)}>
+              </button>
+            </>
+          ) : (
+            <button onclick={() => setEditMode(true)}>
             Create
-          </button>
-        )}
+            </button>
+          )}
         </div>
       </div>
     </nav>
