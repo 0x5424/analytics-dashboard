@@ -65,11 +65,18 @@ v1
 ## Todo
 
 Known issues/missing features:
-- [ ] No shared dev environment (if choosing to not use emulator)
-- [ ] No option to support engagements API
-- [ ] CI
+- [ ] No instructions for non-emulator usage
+- [ ] CI/CD
+- [ ] No deletion/unlinking twitter credentials
+- [ ] No deletion of talents
 
 DX:
 - [ ] Clean up integrations logic/structure
   - [ ] Twitter
 - [ ] `solid.js` best practices for passing signals to child components
+
+UX:
+- [ ] Error messages for revoked tokens
+
+(Integration specific) Twitter:
+- [ ] No option to support engagements API
