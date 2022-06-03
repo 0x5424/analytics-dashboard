@@ -24,9 +24,9 @@ if (!process.env.COOKIE_SIGNING_KEY) {
   require('dotenv').config() // eslint-disable-line @typescript-eslint/no-var-requires
 }
 
-// 1. Signing key is 32 raw bytes, b64 encoded
+// 1. Signing key is 32 raw bytes, hex-encoded
 app.use(cookieParser(Buffer.from(process.env.COOKIE_SIGNING_KEY, 'hex').toString()))
-// 1. Encryption key is 32 raw bytes, hex-enoded
+// 2. Encryption key is 32 raw bytes, hex-enoded
 app.use(cookieEncryptor(Buffer.from(process.env.COOKIE_ENCRYPTION_KEY, 'hex')))
 
 // Apply routing

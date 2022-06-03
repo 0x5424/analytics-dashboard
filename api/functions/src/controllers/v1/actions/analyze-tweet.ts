@@ -1,6 +1,6 @@
 import * as functions from 'firebase-functions'
 import {Request, Response} from 'express'
-import {getDatabase} from 'firebase-admin/database'
+import {getDatabase, ServerValue} from 'firebase-admin/database'
 import type {TTweetv2TweetField, TTweetv2MediaField, TTweetv2Expansion} from 'twitter-api-v2'
 import {TwitterApi} from 'twitter-api-v2'
 
@@ -25,6 +25,8 @@ const MEDIA_EXPANSIONS: TTweetv2Expansion[] = ['attachments.media_keys']
 interface TwitterCredentials {
   access_token: string;
   refresh_token: string;
+  expires_in: number;
+  timestamp: number;
 }
 
 export const analyzeTweet = async (req: Request, res: Response) => {
@@ -51,10 +53,33 @@ export const analyzeTweet = async (req: Request, res: Response) => {
     if (!twitter) return res.status(404).send({message: 'Not found'})
 
     /**
-     * @todo Beautiful handling for refresh_token
-     * @see {@link https://github.com/PLhery/node-twitter-api-v2/blob/master/doc/auth.md#optional-refresh-the-token-later}
+     * Timestamps saved in ms, twitter.expires_in saved in seconds
      */
-    const client = new TwitterApi(twitter.access_token)
+    const shouldRefresh = (twitter.timestamp + (twitter.expires_in * 1000)) < Date.now()
+
+    let validAccessToken = twitter.access_token
+    if (shouldRefresh) {
+      const refreshClient = new TwitterApi({
+        clientId: process.env.TWITTER_API_KEY,
+        clientSecret: process.env.TWITTER_API_SECRET,
+      })
+
+      // 1. Use access_token
+      const {accessToken, refreshToken, expiresIn} = await refreshClient.refreshOAuth2Token(twitter.refresh_token)
+
+      // 2. Update DB
+      await getDatabase().ref(`/twitters/${twitterId}`).update({
+        access_token: accessToken,
+        refresh_token: refreshToken,
+        expires_in: expiresIn - 60, // Refresh 1 minute earlier to prevent any differences in server timing
+        timestamp: ServerValue.TIMESTAMP
+      })
+
+      // 3. Update scoped token
+      validAccessToken = accessToken
+    }
+
+    const client = new TwitterApi(validAccessToken)
 
     const tweet = await client.v2.singleTweet(tweetId, {
       'tweet.fields': includePromoted ? [PROMOTED, ...TWEET_FIELDS] : TWEET_FIELDS,

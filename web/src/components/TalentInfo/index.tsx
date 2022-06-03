@@ -17,9 +17,6 @@ export const TalentInfo: Component = ({selectedTalent, selectedTwitter, updateTa
             selectedTalent={selectedTalent}
             selectedTwitter={selectedTwitter}
           />
-          <pre>
-            {JSON.stringify(selectedTalent(), null, 2)}
-          </pre>
         </>) : <pre>No talent selected.</pre>}
     </div>
   )
